@@ -2,146 +2,163 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
+<title>Bilimsel Olarak Kanıtlandı</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SECURITY LOCKDOWN</title>
 <style>
-*{box-sizing:border-box}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Comic Sans MS', 'Arial', sans-serif;
+}
 body{
-  margin:0;background:#000;color:#00ff66;
-  font-family:Courier New,monospace;
-  height:100vh;overflow:hidden;
+    background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+    color:white;
+    text-align:center;
+    overflow-x:hidden;
 }
-.screen{padding:14px;height:100%;display:flex;flex-direction:column}
-.header{
-  color:#ff0033;font-weight:bold;
-  animation:blink 1s infinite;
+section{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
 }
-@keyframes blink{50%{opacity:.2}}
-.log{flex:1;overflow-y:auto;font-size:14px;line-height:1.4;margin-top:8px}
-.log p{margin:0 0 6px}
-.footer{display:flex;gap:10px}
+h1{
+    font-size:2.5rem;
+    margin-bottom:20px;
+}
+p{
+    font-size:1.2rem;
+    opacity:.9;
+    max-width:600px;
+}
 button{
-  flex:1;padding:14px;font-size:15px;
-  border:none;border-radius:6px;cursor:pointer
+    margin:10px;
+    padding:15px 30px;
+    border:none;
+    border-radius:50px;
+    font-size:1rem;
+    cursor:pointer;
+    background:#ff4d6d;
+    color:white;
+    transition:.3s;
 }
-.panic{background:#ff0033;color:#fff}
-.reveal{background:#00ff66;color:#000;display:none}
-.shake{animation:shake .12s infinite}
-@keyframes shake{
-  0%{transform:translate(2px,1px)}
-  25%{transform:translate(-2px,-3px)}
-  50%{transform:translate(-4px,0)}
-  75%{transform:translate(4px,3px)}
-  100%{transform:translate(1px,-2px)}
+button:hover{
+    transform:scale(1.1) rotate(-1deg);
 }
-.flash{
-  position:fixed;inset:0;background:#fff;opacity:0;
-  pointer-events:none;
+.card{
+    background:rgba(255,255,255,0.1);
+    padding:20px;
+    margin:10px;
+    border-radius:20px;
+    max-width:500px;
 }
-.overlay{
-  position:fixed;inset:0;background:#000;
-  color:#fff;display:none;align-items:center;
-  justify-content:center;text-align:center;padding:20px
+.hearts{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    pointer-events:none;
+    overflow:hidden;
 }
-.overlay h1{color:#00ff66}
-.countdown{
-  color:#ff0033;font-size:18px;font-weight:bold
+.heart{
+    position:absolute;
+    color:#ff4d6d;
+    font-size:20px;
+    animation:float 5s linear infinite;
+}
+@keyframes float{
+    from{transform:translateY(100vh);opacity:1;}
+    to{transform:translateY(-10vh);opacity:0;}
+}
+footer{
+    padding:20px;
+    font-size:.8rem;
+    opacity:.5;
 }
 </style>
 </head>
 <body>
 
-<audio id="alarm" loop>
-  <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg">
-</audio>
+<div class="hearts" id="hearts"></div>
 
-<div class="flash" id="flash"></div>
+<section>
+<h1>📢 BİLİMSEL DUYURU</h1>
+<p>
+Bu siteye giren herkesin kalbi %23 daha hızlı atmıştır.  
+Sebebi hâlâ araştırılıyor ama şüpheli belli.
+</p>
+<button onclick="alert('Evet… sensin 😌')">Şüpheliyi Göster</button>
+</section>
 
-<div class="screen shake" id="screen">
-  <div class="header">⚠️ SYSTEM BREACH — UNAUTHORIZED ACCESS ⚠️</div>
-  <div class="log" id="log"></div>
-  <div class="countdown" id="countdown"></div>
-  <div class="footer">
-    <button class="panic" onclick="panic()">ACİL KİLİTLE</button>
-    <button class="reveal" id="revealBtn" onclick="reveal()">ŞAKA 😅</button>
-  </div>
-</div>
+<section>
+<h1>📊 GÜZELLİK ANALİZİ</h1>
 
-<div class="overlay" id="overlay">
-  <div>
-    <h1>😂 ŞAKAYDI!</h1>
-    <p>Telefonun güvende.</p>
-    <p>Hiçbir şey olmadı 💚</p>
-    <p>(Ama kalp atışın hızlandıysa… görev başarılı 😎)</p>
-  </div>
-</div>
+<div class="card">Sen → %100</div>
+<div class="card">Diğer Herkes → %0</div>
+<div class="card">Bu Kararın Bilimselliği → Tartışılamaz</div>
+
+<button onclick="alert('İtiraz kabul edilmemektedir.')">İtiraz Et</button>
+</section>
+
+<section>
+<h1>🚫 SAKIN BASMA</h1>
+<button onclick="sakın()">SAKIN BASMA</button>
+</section>
+
+<section>
+<h1>🎰 SENİN HAKKINDA GERÇEKLER</h1>
+<div class="card" id="fact">Butona bas 👀</div>
+<button onclick="fact()">Gerçek Göster</button>
+</section>
+
+<section>
+<h1>💣 SÜRPRİZ MOD</h1>
+<button onclick="surpriz()">SÜRPRİZİ AÇ</button>
+</section>
+
+<footer>
+Bu site başka kimseye açılmaz. Açılırsa kıskanırım.
+</footer>
 
 <script>
-const logEl=document.getElementById("log");
-const alarm=document.getElementById("alarm");
-const flash=document.getElementById("flash");
-const revealBtn=document.getElementById("revealBtn");
-const countdownEl=document.getElementById("countdown");
+function sakın(){
+    document.body.style.background="black";
+    setTimeout(()=>{
+        alert("Basacağını biliyordum 😏");
+        document.body.style.background="";
+    },800);
+}
 
-const lines=[
- "Connecting to remote node...",
- "Android device detected.",
- "IMEI resolved.",
- "Accessing gallery...",
- "Accessing WhatsApp media...",
- "Camera permission hijacked.",
- "📸 FRONT CAMERA ACTIVE",
- "Uploading files...",
- "WARNING: DATA BREACH CONFIRMED",
- "INITIATING DEVICE LOCKDOWN"
+const facts=[
+    "Gülünce ortamın elektriğini kesiyor.",
+    "Sinirliyken bile tatlı olabilen nadir canlı.",
+    "Güzelliği bazı ülkelerde yasaklanmalı.",
+    "Benim en sevdiğim insan (evet ciddi).",
+    "Dünyanın bug’lı ama en güzel karakteri."
 ];
 
-let i=0;
-function addLine(){
- if(i<lines.length){
-  const p=document.createElement("p");
-  p.textContent="> "+lines[i++];
-  logEl.appendChild(p);
-  logEl.scrollTop=logEl.scrollHeight;
-
-  if(lines[i-1].includes("CAMERA")){
-    flash.style.opacity=1;
-    setTimeout(()=>flash.style.opacity=0,100);
-    if(navigator.vibrate) navigator.vibrate([200,100,200]);
-  }
-
-  setTimeout(addLine,650);
- }else{
-  startCountdown();
- }
-}
-addLine();
-
-function startCountdown(){
- let t=10;
- alarm.play().catch(()=>{});
- countdownEl.textContent="Veriler siliniyor: "+t+" sn";
- const interval=setInterval(()=>{
-  t--;
-  countdownEl.textContent="Veriler siliniyor: "+t+" sn";
-  if(navigator.vibrate) navigator.vibrate(300);
-  if(t<=0){
-    clearInterval(interval);
-    revealBtn.style.display="block";
-    countdownEl.textContent="SON AŞAMA";
-  }
- },1000);
+function fact(){
+    document.getElementById("fact").innerText=
+    facts[Math.floor(Math.random()*facts.length)];
 }
 
-function panic(){
- alert("Kilitleme başarısız!\nYetkisiz erişim devam ediyor!");
-}
-
-function reveal(){
- alarm.pause();
- document.getElementById("screen").classList.remove("shake");
- document.getElementById("overlay").style.display="flex";
+function surpriz(){
+    for(let i=0;i<40;i++){
+        let h=document.createElement("div");
+        h.className="heart";
+        h.innerText="💖";
+        h.style.left=Math.random()*100+"%";
+        h.style.animationDuration=(Math.random()*3+2)+"s";
+        document.getElementById("hearts").appendChild(h);
+        setTimeout(()=>h.remove(),5000);
+    }
+    setTimeout(()=>{
+        alert("Şaka bir yana… seninle çok mutluyum 💗");
+    },500);
 }
 </script>
+
 </body>
 </html>
