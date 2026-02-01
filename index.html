@@ -2,131 +2,138 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>⚠️ SİSTEM UYARISI</title>
+<title>⚠️ SİSTEM ERİŞİMİ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body {
-    margin: 0;
-    background: black;
-    color: #00ff66;
-    font-family: monospace;
-    overflow: hidden;
-}
-.center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 90%;
-}
-h1 {
-    font-size: 2.3rem;
-    animation: blink 1s infinite;
-}
-@keyframes blink {
-    0% {opacity:1;}
-    50% {opacity:0.3;}
-    100% {opacity:1;}
-}
-.bar {
-    width: 100%;
-    border: 1px solid #00ff66;
-    margin-top: 20px;
-}
-.fill {
-    height: 20px;
-    width: 0%;
-    background: #00ff66;
-    transition: 0.3s;
-}
-.log {
-    margin-top: 20px;
-    min-height: 90px;
-}
-.final {
-    display: none;
-    color: yellow;
-    font-size: 2rem;
-    animation: shake 0.3s infinite;
-}
-@keyframes shake {
-    0% {transform:translate(0,0);}
-    25% {transform:translate(3px,-3px);}
-    50% {transform:translate(-3px,3px);}
-    75% {transform:translate(3px,3px);}
-    100% {transform:translate(0,0);}
-}
-button {
-    margin-top: 25px;
-    padding: 12px 25px;
-    font-size: 1.1rem;
-    cursor: pointer;
-}
+body{margin:0;background:black;color:#00ff66;font-family:monospace;overflow:hidden}
+.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:90%}
+h1{animation:blink 1s infinite}
+@keyframes blink{0%{opacity:1}50%{opacity:.3}100%{opacity:1}}
+.bar{border:1px solid #00ff66;margin-top:15px}
+.fill{height:20px;width:0%;background:#00ff66;transition:.4s}
+.log{margin-top:15px;min-height:90px}
+.popup{position:absolute;background:#111;border:2px solid red;color:#fff;padding:12px;animation:shake .2s infinite;z-index:5}
+@keyframes shake{0%{transform:translate(0,0)}25%{transform:translate(3px,-3px)}50%{transform:translate(-3px,3px)}75%{transform:translate(3px,3px)}100%{transform:translate(0,0)}}
+.call{position:absolute;inset:0;background:#000;display:none;align-items:center;justify-content:center;z-index:9}
+.callBox{border:2px solid #0f0;padding:20px;text-align:center}
+.callBox h2{color:#0f0}
+.callBtns button{margin:10px;padding:10px 18px;font-size:1rem;cursor:pointer}
+.final{display:none;color:yellow;font-size:2rem;animation:shake .3s infinite}
+small{color:#aaa}
 </style>
 </head>
 <body>
 
-<!-- GİZLİ KOMİK MÜZİK -->
+<!-- SAÇMA ŞARKI (arkada) -->
 <iframe width="0" height="0"
-src="https://www.youtube.com/embed/5xVh-7ywKpE?autoplay=1&loop=1&playlist=5xVh-7ywKpE"
-allow="autoplay">
-</iframe>
+src="https://www.youtube.com/embed/9Deg7VrpHbM?autoplay=1&loop=1&playlist=9Deg7VrpHbM"
+allow="autoplay"></iframe>
 
 <div class="center">
-    <h1>📡 TELEFON TARANIYOR…</h1>
+  <h1 id="title">📡 TELEFON ELE GEÇİRİLDİ</h1>
+  <div class="bar"><div class="fill" id="fill"></div></div>
+  <div class="log" id="log"></div>
 
-    <div class="bar">
-        <div class="fill" id="fill"></div>
+  <div class="final" id="final">
+    😂😂 ŞAKAAAA 😂😂<br><br>
+    <span id="romantik" style="font-size:1.2rem"></span><br><br>
+    <button onclick="alert('BUNA BASTIYSAN BEN KAZANDIM 😏')">ASLA BASMA</button>
+    <br><small>(Ama iyi ki bastın ❤️)</small>
+  </div>
+</div>
+
+<!-- SAHTE ARAMA -->
+<div class="call" id="call">
+  <div class="callBox">
+    <h2>📞 Arayan: ANNE</h2>
+    <p>Bağlanıyor…</p>
+    <div class="callBtns">
+      <button onclick="endCall()">Reddet</button>
+      <button onclick="endCall()">Aç</button>
     </div>
-
-    <div class="log" id="log"></div>
-
-    <div class="final" id="final">
-        😂 ŞAKA LAN 😂<br><br>
-        <span style="font-size:1.2rem;">
-        SEN DÜNYANIN EN TATLI KIZISIN ❤️<br>
-        ama bu site %100 makara 😎
-        </span><br><br>
-        <button onclick="alert('BUNA TIKLADIYSAN BEN KAZANDIM 😏')">
-            BUNA SAKIN TIKLAMA
-        </button>
-    </div>
+  </div>
 </div>
 
 <script>
+// İSİM AL (kişisel panik)
+const isim = prompt("Elif Sahra") || "Gizemli Kişi";
+
+// LOG MESAJLARI (isimli)
 const logs = [
-    "📱 WhatsApp mesajları okunuyor… (panik yapma)",
-    "📸 Galeri taranıyor… ayy bu foto ne 😳",
-    "📍 Konum alındı: Çok tatlı bir yer",
-    "💬 Son mesaj: 'ne yapıyon?'",
-    "🧠 Zeka seviyesi: AŞIRI YÜKSEK",
-    "❤️ Kalp durumu: SAHİBİ VAR",
-    "😂 Sistem hata verdi… çok güzelsin"
+ `📱 ${isim} için WhatsApp mesajları okunuyor…`,
+ `📸 ${isim} galeri taranıyor… ayy bu foto ne 😳`,
+ `📍 Konum alındı: ${isim} çok tatlı bir yerde`,
+ `🎤 Mikrofon açık… ${isim} gülme lan`,
+ `👀 Kamera erişimi alındı… ${isim} bakma öyle`,
+ `😂 Sistem hata verdi: fazla güzellik`,
+ `❤️ Kalp durumu: ${isim} AŞIK`
 ];
 
-let progress = 0;
-let i = 0;
-const fill = document.getElementById("fill");
-const log = document.getElementById("log");
+const fill=document.getElementById("fill");
+const log=document.getElementById("log");
+const title=document.getElementById("title");
+const final=document.getElementById("final");
+const romantik=document.getElementById("romantik");
+let p=0,i=0;
 
-const interval = setInterval(() => {
-    progress += 10;
-    fill.style.width = progress + "%";
-    log.innerHTML = logs[i % logs.length];
-    i++;
+// DÜÜÜT SES (Web Audio – fake)
+function duut(){
+  const ctx=new (window.AudioContext||window.webkitAudioContext)();
+  const o=ctx.createOscillator(); const g=ctx.createGain();
+  o.type="square"; o.frequency.value=900;
+  o.connect(g); g.connect(ctx.destination);
+  g.gain.setValueAtTime(0.001,ctx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.4,ctx.currentTime+0.02);
+  o.start(); setTimeout(()=>{o.stop();ctx.close();},300);
+}
 
-    if (progress >= 100) {
-        clearInterval(interval);
-        setTimeout(() => {
-            document.querySelector("h1").style.display = "none";
-            document.querySelector(".bar").style.display = "none";
-            log.style.display = "none";
-            document.getElementById("final").style.display = "block";
-        }, 700);
-    }
-}, 700);
+// FAKE POPUP
+function fakePopup(text){
+  const d=document.createElement("div");
+  d.className="popup";
+  d.style.top=Math.random()*80+"%";
+  d.style.left=Math.random()*80+"%";
+  d.innerText=text;
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(),2200);
+}
+
+// SAHTE ARAMA
+function fakeCall(){
+  document.getElementById("call").style.display="flex";
+}
+function endCall(){
+  document.getElementById("call").style.display="none";
+  fakePopup("❌ Arama sonlandırıldı");
+}
+
+// GERİ TUŞU FAKE
+history.pushState(null,null,location.href);
+window.onpopstate=()=>alert("😈 KAÇIŞ YOK");
+
+// YÜKLEME
+const int=setInterval(()=>{
+  p+=10; fill.style.width=p+"%";
+  log.innerHTML=logs[i%logs.length]; i++;
+
+  if(p===30){ duut(); fakePopup("⚠️ SİSTEM UYARISI"); }
+  if(p===50){ duut(); fakeCall(); }
+  if(p===70){ fakePopup("❌ TELEFON KİLİTLENDİ"); }
+
+  if(p>=100){
+    clearInterval(int);
+    setTimeout(()=>{
+      title.style.display="none";
+      document.querySelector(".bar").style.display="none";
+      log.style.display="none";
+      romantik.innerHTML =
+        `${isim}, korkuttuysam affet 😅<br>
+        Ama bil ki bu şaka ${isim}’e özel ❤️<br>
+        Gülüşün dünyayı hackliyor.`;
+      final.style.display="block";
+    },900);
+  }
+},700);
 </script>
-
 </body>
 </html>
