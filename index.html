@@ -2,162 +2,130 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Bilimsel Olarak Kanıtlandı</title>
+<title>⚠️ SİSTEM UYARISI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Comic Sans MS', 'Arial', sans-serif;
+body {
+    margin: 0;
+    background: black;
+    color: #00ff66;
+    font-family: monospace;
+    overflow: hidden;
 }
-body{
-    background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
-    color:white;
-    text-align:center;
-    overflow-x:hidden;
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
 }
-section{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:30px;
+h1 {
+    font-size: 2.3rem;
+    animation: blink 1s infinite;
 }
-h1{
-    font-size:2.5rem;
-    margin-bottom:20px;
+@keyframes blink {
+    0% {opacity:1;}
+    50% {opacity:0.3;}
+    100% {opacity:1;}
 }
-p{
-    font-size:1.2rem;
-    opacity:.9;
-    max-width:600px;
+.bar {
+    width: 100%;
+    border: 1px solid #00ff66;
+    margin-top: 20px;
 }
-button{
-    margin:10px;
-    padding:15px 30px;
-    border:none;
-    border-radius:50px;
-    font-size:1rem;
-    cursor:pointer;
-    background:#ff4d6d;
-    color:white;
-    transition:.3s;
+.fill {
+    height: 20px;
+    width: 0%;
+    background: #00ff66;
+    transition: 0.3s;
 }
-button:hover{
-    transform:scale(1.1) rotate(-1deg);
+.log {
+    margin-top: 20px;
+    min-height: 90px;
 }
-.card{
-    background:rgba(255,255,255,0.1);
-    padding:20px;
-    margin:10px;
-    border-radius:20px;
-    max-width:500px;
+.final {
+    display: none;
+    color: yellow;
+    font-size: 2rem;
+    animation: shake 0.3s infinite;
 }
-.hearts{
-    position:fixed;
-    top:0;left:0;
-    width:100%;height:100%;
-    pointer-events:none;
-    overflow:hidden;
+@keyframes shake {
+    0% {transform:translate(0,0);}
+    25% {transform:translate(3px,-3px);}
+    50% {transform:translate(-3px,3px);}
+    75% {transform:translate(3px,3px);}
+    100% {transform:translate(0,0);}
 }
-.heart{
-    position:absolute;
-    color:#ff4d6d;
-    font-size:20px;
-    animation:float 5s linear infinite;
-}
-@keyframes float{
-    from{transform:translateY(100vh);opacity:1;}
-    to{transform:translateY(-10vh);opacity:0;}
-}
-footer{
-    padding:20px;
-    font-size:.8rem;
-    opacity:.5;
+button {
+    margin-top: 25px;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
 }
 </style>
 </head>
 <body>
 
-<div class="hearts" id="hearts"></div>
+<!-- GİZLİ KOMİK MÜZİK -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/5xVh-7ywKpE?autoplay=1&loop=1&playlist=5xVh-7ywKpE"
+allow="autoplay">
+</iframe>
 
-<section>
-<h1>📢 BİLİMSEL DUYURU</h1>
-<p>
-Bu siteye giren herkesin kalbi %23 daha hızlı atmıştır.  
-Sebebi hâlâ araştırılıyor ama şüpheli belli.
-</p>
-<button onclick="alert('Evet… sensin 😌')">Şüpheliyi Göster</button>
-</section>
+<div class="center">
+    <h1>📡 TELEFON TARANIYOR…</h1>
 
-<section>
-<h1>📊 GÜZELLİK ANALİZİ</h1>
+    <div class="bar">
+        <div class="fill" id="fill"></div>
+    </div>
 
-<div class="card">Sen → %100</div>
-<div class="card">Diğer Herkes → %0</div>
-<div class="card">Bu Kararın Bilimselliği → Tartışılamaz</div>
+    <div class="log" id="log"></div>
 
-<button onclick="alert('İtiraz kabul edilmemektedir.')">İtiraz Et</button>
-</section>
-
-<section>
-<h1>🚫 SAKIN BASMA</h1>
-<button onclick="sakın()">SAKIN BASMA</button>
-</section>
-
-<section>
-<h1>🎰 SENİN HAKKINDA GERÇEKLER</h1>
-<div class="card" id="fact">Butona bas 👀</div>
-<button onclick="fact()">Gerçek Göster</button>
-</section>
-
-<section>
-<h1>💣 SÜRPRİZ MOD</h1>
-<button onclick="surpriz()">SÜRPRİZİ AÇ</button>
-</section>
-
-<footer>
-Bu site başka kimseye açılmaz. Açılırsa kıskanırım.
-</footer>
+    <div class="final" id="final">
+        😂 ŞAKA LAN 😂<br><br>
+        <span style="font-size:1.2rem;">
+        SEN DÜNYANIN EN TATLI KIZISIN ❤️<br>
+        ama bu site %100 makara 😎
+        </span><br><br>
+        <button onclick="alert('BUNA TIKLADIYSAN BEN KAZANDIM 😏')">
+            BUNA SAKIN TIKLAMA
+        </button>
+    </div>
+</div>
 
 <script>
-function sakın(){
-    document.body.style.background="black";
-    setTimeout(()=>{
-        alert("Basacağını biliyordum 😏");
-        document.body.style.background="";
-    },800);
-}
-
-const facts=[
-    "Gülünce ortamın elektriğini kesiyor.",
-    "Sinirliyken bile tatlı olabilen nadir canlı.",
-    "Güzelliği bazı ülkelerde yasaklanmalı.",
-    "Benim en sevdiğim insan (evet ciddi).",
-    "Dünyanın bug’lı ama en güzel karakteri."
+const logs = [
+    "📱 WhatsApp mesajları okunuyor… (panik yapma)",
+    "📸 Galeri taranıyor… ayy bu foto ne 😳",
+    "📍 Konum alındı: Çok tatlı bir yer",
+    "💬 Son mesaj: 'ne yapıyon?'",
+    "🧠 Zeka seviyesi: AŞIRI YÜKSEK",
+    "❤️ Kalp durumu: SAHİBİ VAR",
+    "😂 Sistem hata verdi… çok güzelsin"
 ];
 
-function fact(){
-    document.getElementById("fact").innerText=
-    facts[Math.floor(Math.random()*facts.length)];
-}
+let progress = 0;
+let i = 0;
+const fill = document.getElementById("fill");
+const log = document.getElementById("log");
 
-function surpriz(){
-    for(let i=0;i<40;i++){
-        let h=document.createElement("div");
-        h.className="heart";
-        h.innerText="💖";
-        h.style.left=Math.random()*100+"%";
-        h.style.animationDuration=(Math.random()*3+2)+"s";
-        document.getElementById("hearts").appendChild(h);
-        setTimeout(()=>h.remove(),5000);
+const interval = setInterval(() => {
+    progress += 10;
+    fill.style.width = progress + "%";
+    log.innerHTML = logs[i % logs.length];
+    i++;
+
+    if (progress >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+            document.querySelector("h1").style.display = "none";
+            document.querySelector(".bar").style.display = "none";
+            log.style.display = "none";
+            document.getElementById("final").style.display = "block";
+        }, 700);
     }
-    setTimeout(()=>{
-        alert("Şaka bir yana… seninle çok mutluyum 💗");
-    },500);
-}
+}, 700);
 </script>
 
 </body>
